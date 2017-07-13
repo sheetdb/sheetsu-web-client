@@ -1,0 +1,3 @@
+test_page*.html
+build/*
+.idea/
