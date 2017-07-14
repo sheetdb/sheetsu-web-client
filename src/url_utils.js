@@ -1,6 +1,7 @@
 var sheetsuUrlGet = function(slug_or_url, options) {
   var url = sheetsuUrl(slug_or_url),
-      pathQueryString = "";
+      pathQueryString = "",
+      limit_offset_transposed = addLimitOffsetTransposed(options);
 
   if (options["sheet"]) {
     pathQueryString += sheet(options);
@@ -8,9 +9,15 @@ var sheetsuUrlGet = function(slug_or_url, options) {
 
   if (options["search"]) {
     pathQueryString += search(options);
+  }  
+
+  if (limit_offset_transposed != "") {
+    if (options["search"]) {
+      pathQueryString += ("&" + limit_offset_transposed);
+    } else {
+      pathQueryString += ("?" + limit_offset_transposed);
+    }
   }
-  
-  pathQueryString += ("?" + addLimitOffsetTransposed(options));
 
   return (url + pathQueryString);
 };
@@ -39,7 +46,7 @@ var search = function(options) {
       searchParams = JSON.parse(options["search"]);
 
   for (key in searchParams) { searchQuery.push(key + "=" + searchParams[key]); };
-  return ("/search?" + searchQuery.join("&") + "&" + addLimitOffsetTransposed(options));
+  return ("/search?" + searchQuery.join("&"));
 };
 
 var sheet = function(options) {
