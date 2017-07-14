@@ -73,14 +73,14 @@ describe("Sheetsu.read", function() {
       });
 
       it("/search", function() {
-        Sheetsu.read("deadbeef69", { "search": '{ "name": "Peter", "score": "43" }' }, doneFn);
+        Sheetsu.read("deadbeef69", { "search": { "name": "Peter", "score": "43" } }, doneFn);
 
         expect(jasmine.Ajax.requests.mostRecent().url).toBe("https://sheetsu.com/apis/v1.0/deadbeef69/search?name=Peter&score=43");
         expect(jasmine.Ajax.requests.mostRecent().method).toBe("GET");
       });
 
       it("/search with offset", function() {
-        Sheetsu.read("deadbeef69", { "search": '{ "name": "Peter", "score": "43" }', "offset": "3" }, doneFn);
+        Sheetsu.read("deadbeef69", { "search": { "name": "Peter", "score": "43" }, "offset": "3" }, doneFn);
 
         expect(jasmine.Ajax.requests.mostRecent().url).toBe("https://sheetsu.com/apis/v1.0/deadbeef69/search?name=Peter&score=43&offset=3");
         expect(jasmine.Ajax.requests.mostRecent().method).toBe("GET");

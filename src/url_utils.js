@@ -43,7 +43,7 @@ var sheetsuUrl = function(urlOrSlug) {
 
 var search = function(options) {
   var searchQuery = [],
-      searchParams = JSON.parse(options["search"]);
+      searchParams = options["search"];
 
   for (key in searchParams) { searchQuery.push(key + "=" + searchParams[key]); };
   return ("/search?" + searchQuery.join("&"));
