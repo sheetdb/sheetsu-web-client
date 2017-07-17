@@ -1,0 +1,25 @@
+{
+  "name": "sheetsu-web-client",
+  "version": "1.0.0",
+  "description": "Google Spreadsheets as a website database. Store, edit and analyse data even with no knowledge of SQL. With few lines of code you can read and write data to Google Spreadsheets.",
+  "main": "build/sheetsu-web-client.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sheetsu/sheetsu-web-client.git"
+  },
+  "keywords": [
+    "sheetsu",
+    "google",
+    "spreadsheet",
+    "drive"
+  ],
+  "author": "Michael Oblak",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sheetsu/sheetsu-web-client/issues"
+  },
+  "homepage": "https://github.com/sheetsu/sheetsu-web-client#readme"
+}
