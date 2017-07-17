@@ -1,0 +1,14 @@
+{
+  "name": "sheetsu-web-client",
+  "description": "",
+  "version": "1.0.0",
+  "main": "build/sheetsu-web-client.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sheetsu/sheetsu-web-client.git"
+  },
+  "keywords": ["sheetsu", "google", "spreadsheet", "drive"],
+  "author": "Michael Oblak",
+  "license": "MIT",
+  "homepage": "https://github.com/sheetsu/sheetsu-web-client.git"
+}
