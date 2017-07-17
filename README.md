@@ -12,6 +12,7 @@ Quick start
 5. [Plot chart](#plot-chart)
 
 Other
+- [Installation](#installation)
 - [What is Sheetsu?](#what-is-sheetsu)
 - [How to create Google Spreadsheets API?](#how-to-create-google-spreadsheets-api)
 - [Docs](#docs)
@@ -183,6 +184,14 @@ Plot chart with [HighchartJS](https://www.highcharts.com/).
 
 ```
 [Play with the live version of the code on CodePen](https://codepen.io/sheetsu/pen/RgOdaZ)
+
+# Installation
+To install Sheetsu Web Client, just add
+```
+<script src="//script.sheetsu.com/"></script>
+```
+to the `<head>` of a website.
+Or anywhere else. It should work anyway :)
 
 # What is Sheetsu
 
