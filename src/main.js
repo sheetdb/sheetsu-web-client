@@ -1,4 +1,5 @@
 Sheetsu = {
   read: read,
-  write: write
+  write: write,
+  version: "1.0"
 }
