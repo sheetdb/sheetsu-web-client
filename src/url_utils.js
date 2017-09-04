@@ -9,7 +9,7 @@ var sheetsuUrlGet = function(slug_or_url, options) {
 
   if (options["search"]) {
     pathQueryString += search(options);
-  }  
+  }
 
   if (limit_offset_transposed != "") {
     if (options["search"]) {
@@ -58,6 +58,7 @@ var addLimitOffsetTransposed = function(options) {
   if (options["limit"]) { queryOptions.push("limit=" + options["limit"]); };
   if (options["offset"]) { queryOptions.push("offset=" + options["offset"]); };
   if (options["transposed"]) { queryOptions.push("transposed=" + options["transposed"]); };
+  if (options["ignore_case"]) { queryOptions.push("ignore_case=" + options["ignore_case"]); };
 
   return queryOptions.join("&");
 };

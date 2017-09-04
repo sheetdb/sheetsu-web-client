@@ -58,6 +58,20 @@ describe("Sheetsu.read", function() {
         expect(jasmine.Ajax.requests.mostRecent().method).toBe("GET");
       });
 
+      it("ignore_case true", function() {
+        Sheetsu.read("deadbeef69", { "ignore_case": "true" }, doneFn);
+
+        expect(jasmine.Ajax.requests.mostRecent().url).toBe("https://sheetsu.com/apis/v1.0/deadbeef69?ignore_case=true");
+        expect(jasmine.Ajax.requests.mostRecent().method).toBe("GET");
+      });
+
+      it("ignore_case false", function() {
+        Sheetsu.read("deadbeef69", { "ignore_case": "false" }, doneFn);
+
+        expect(jasmine.Ajax.requests.mostRecent().url).toBe("https://sheetsu.com/apis/v1.0/deadbeef69?ignore_case=false");
+        expect(jasmine.Ajax.requests.mostRecent().method).toBe("GET");
+      });
+
       it("transposed", function() {
         Sheetsu.read("deadbeef69", { "transposed": "true" }, doneFn);
 
