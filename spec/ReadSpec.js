@@ -106,6 +106,25 @@ describe("Sheetsu.read", function() {
         expect(jasmine.Ajax.requests.mostRecent().url).toBe("https://sheetsu.com/apis/v1.0/deadbeef69/sheets/animals?limit=1&offset=2&transposed=true");
         expect(jasmine.Ajax.requests.mostRecent().method).toBe("GET");
       });
+
+      it("and return promise", function() {
+        var expectedResponse = JSON.stringify("[{TestColumn: 'A'},{TestColumn: 'B'},{TestColumn:'C'},{TestColumn:'D'}]");
+        var url = "https://sheetsu.com/apis/v1.0/deadbeef69/sheets/animals?limit=1&offset=2&transposed=true";
+        jasmine.Ajax.stubRequest(url).andReturn({
+          "status": 200,
+          "contentType": "application/json",
+          "responseText": expectedResponse
+        });
+
+        Sheetsu
+          .read("deadbeef69", { "sheet": "animals", "limit": "1", "offset": "2", "transposed": "true" })
+          .then(function(data){
+            expect(data).toEqual(JSON.parse(expectedResponse));
+          });
+
+        expect(jasmine.Ajax.requests.mostRecent().url).toBe(url);
+        expect(jasmine.Ajax.requests.mostRecent().method).toBe("GET");
+      });
     });
   });
 });
