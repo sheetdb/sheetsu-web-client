@@ -15,7 +15,7 @@ function write(slug_or_url, data, options, successFunction) {
 function writeWithPromise(slug_or_url, data, options) {
   return new Promise(function (resolve, reject) {
     var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
-    xhr.open("POST", slug_or_url, true);
+    xhr.open("POST", sheetsuUrlPost(slug_or_url, options), true);
     xhr.onload = function () {
       if (this.status >= 200 && this.status < 300) {
         resolve(JSON.parse(xhr.responseText));
@@ -34,6 +34,6 @@ function writeWithPromise(slug_or_url, data, options) {
       reject(e);
     };
 
-    xhr.send();
+    xhr.send(JSON.stringify(data));
   });
 }

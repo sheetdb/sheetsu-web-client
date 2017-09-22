@@ -47,9 +47,14 @@ describe("Sheetsu.write", function() {
       expect(JSON.parse(jasmine.Ajax.requests.mostRecent().params)).toEqual(data);
     });
 
-    it("should return promise", function() {
-        var expectedResponse = JSON.stringify({TestColumn: 'A'},{TestColumn: 'B'});
-        var url = "https://sheetsu.com/apis/v1.0/deadbeef69";
+    describe("with promise", function() {
+      var url;
+      var expectedResponse;
+      var expectedValue;
+
+      beforeEach(function(done) {
+        expectedResponse = JSON.stringify({TestColumn: 'A'});
+        url = "https://sheetsu.com/apis/v1.0/deadbeef69";
         jasmine.Ajax.stubRequest(url).andReturn({
           "status": 200,
           "contentType": "application/json",
@@ -59,11 +64,20 @@ describe("Sheetsu.write", function() {
         Sheetsu
           .write(url, JSON.parse(expectedResponse), {})
           .then(function(data){
-            expect(data).toEqual(JSON.parse(expectedResponse));
+            expectedValue = data;
+            done();
           });
+      });
 
+      it("should be called with proper url and method", function() {
         expect(jasmine.Ajax.requests.mostRecent().url).toBe(url);
         expect(jasmine.Ajax.requests.mostRecent().method).toBe("POST");
       });
+
+      it("should return value in then", function() {
+        expect(expectedValue).toEqual(JSON.parse(expectedResponse));
+      });
+
+    });
   });
 });
