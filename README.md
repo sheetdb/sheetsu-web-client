@@ -36,17 +36,22 @@ Read data from Google Spreadsheets anywhere on the web. It works with ALL websit
     // In this example data is saved to the window.users variable
     // So it's available for use anywhere in the app/page
     function successFunc(data) {
-      window.users = data;
+      console.log(data);
+    }
+
+    function errorFunc(e) {
+      console.log(e);
     }
 
     // Use Sheetsu.read to get data from a spreadsheet.
     // Pass callback function, which takes one argument - data
     // It's triggered after getting data from API
-    Sheetsu.read("https://sheetsu.com/apis/v1.0/020b2c0f/", {}, successFunc);
+    Sheetsu.read("https://sheetsu.com/apis/v1.0/020b2c0f/", {}).then(successFunc, errorFunc);
+
   </script>
 </body>
 ```
-[Play with the live version of the code on CodePen](https://codepen.io/sheetsu/pen/EXJOYx)
+[Play with the live version of the code on CodePen](https://codepen.io/sheetsu/pen/QqKaOG?editors=1111)
 
 ## Search
 
@@ -65,16 +70,20 @@ Search Google Spreadsheets for a record that matches your criteria.
       console.log(data);
     }
 
+    function errorFunc(e) {
+      console.log(e);
+    }
+
     // Use Sheetsu.read to get data from a spreadsheet.
     // Pass search with JSON to perform a get only results matching your criteria
     var searchQuery = { score: 42 };
     // Pass callback function, which takes one argument - data
     // It's triggered after getting data from API
-    Sheetsu.read("https://sheetsu.com/apis/v1.0/020b2c0f/", { search: searchQuery }, successFunc);
+    Sheetsu.read("https://sheetsu.com/apis/v1.0/020b2c0f/", { search: searchQuery }).then(successFunc, errorFunc);
   </script>
 </body>
 ```
-[Play with the live version of the code on CodePen](https://codepen.io/sheetsu/pen/gRyQMv?editors=1111)
+[Play with the live version of the code on CodePen](https://codepen.io/sheetsu/pen/LzReOX?editors=1111)
 
 ## Read and update HTML elements
 
@@ -98,11 +107,15 @@ Get elements from Google Spreadsheets and show them on the web.
       });
     }
 
-    Sheetsu.read("https://sheetsu.com/apis/v1.0/020b2c0f/", {}, successFunc);
+    function errorFunc(e) {
+      console.log(e);
+    }
+
+    Sheetsu.read("https://sheetsu.com/apis/v1.0/020b2c0f/", {}).then(successFunc, errorFunc);
   </script>
 </body>
 ```
-[Play with the live version of the code on CodePen](https://codepen.io/sheetsu/pen/qjwQqa)
+[Play with the live version of the code on CodePen](https://codepen.io/sheetsu/pen/veXppq?editors=1111)
 
 ## Save data
 
@@ -141,24 +154,13 @@ Save data from the form to the Google Spreadsheets
       // 2 - JSON representation of a row you want to save
       // 3 - options
       // 4 - callback function after successful save
-      Sheetsu.write("https://sheetsu.com/apis/v1.0/020b2c0f/", data, {}, function(x) {console.log(x);});
+      Sheetsu.write("https://sheetsu.com/apis/v1.0/020b2c0f/", data, {})
+        .then(function(x) {console.log(x);}, function(e) {console.log(e)});
     }
   </script>
 </body>
 ```
-[Play with the live version of the code on CodePen](https://codepen.io/sheetsu/pen/NgmerW?editors=1111)
-
-You can also pass the error callback, which will be triggered on any error from the API
-
-```javascript
-Sheetsu.write(
-  "https://sheetsu.com/apis/v1.0/020b2c0f/",
-  data,
-  {},
-  function(data) { console.log(data); } // On success
-  function(error) { console.log(error); } // On error
-);
-```
+[Play with the live version of the code on CodePen](https://codepen.io/sheetsu/pen/gGwoeb?editors=1111)
 
 ## Plot chart
 
@@ -175,7 +177,7 @@ Plot chart with [HighchartJS](https://www.highcharts.com/).
   <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
   <script>
-    Sheetsu.read("https://sheetsu.com/apis/v1.0/020b2c0f/", {}, successFunc);
+    Sheetsu.read("https://sheetsu.com/apis/v1.0/020b2c0f/", {}).then(successFunc);
 
     function successFunc(data) {
       Highcharts.chart("container", {
@@ -195,7 +197,7 @@ Plot chart with [HighchartJS](https://www.highcharts.com/).
 </body>
 
 ```
-[Play with the live version of the code on CodePen](https://codepen.io/sheetsu/pen/RgOdaZ)
+[Play with the live version of the code on CodePen](https://codepen.io/sheetsu/pen/dVpJmr)
 
 # Installation
 To install Sheetsu Web Client, just add
@@ -254,8 +256,8 @@ After that, your Sheetsu API will be created. You can click on a generatated lin
 
 [Sheetsu documentation sits on GitHub](https://github.com/sheetsu/docs). We would love your contributions! We want to make these docs accessible and easy to understand for everyone. Please send us Pull Requests or open issues on GitHub.
 
-### Sheetsu.read(url, options, callback)
-Read data from Google Spreadsheet. Runs `callback` on success. `options` can be:
+### Sheetsu.read(url, options)
+Read data from Google Spreadsheet. Returns promis. `options` can be:
 ```
 limit - number of how many rows should be returned
 offset - number from which row response should start (default is 0)
@@ -273,8 +275,8 @@ All options can be used together
 { sheet: "Sheet2", search: { foo: "bar" }, limit: 1 } - return first row only from worksheet named "Sheet2", where column 'foo' equals 'bar'
 ```
 
-### Sheetsu.write(url, data, options, callback)
-Write data to Google Spreadsheet. Runs `callback` with sent data on success. `data` can be object - one row, or array similar to
+### Sheetsu.write(url, data, options)
+Write data to Google Spreadsheet. Returns promis. `data` can be object - one row, or array similar to
 ```
 {
   rows: [
