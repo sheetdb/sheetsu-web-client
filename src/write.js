@@ -11,3 +11,29 @@ function write(slug_or_url, data, options, successFunction) {
   xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
   xhr.send(JSON.stringify(data));
 }
+
+function writeWithPromise(slug_or_url, data, options) {
+  return new Promise(function (resolve, reject) {
+    var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+    xhr.open("POST", slug_or_url, true);
+    xhr.onload = function () {
+      if (this.status >= 200 && this.status < 300) {
+        resolve(JSON.parse(xhr.responseText));
+      } else {
+        reject({
+          status: this.status,
+          statusText: xhr.statusText
+        });
+      }
+    };
+
+    xhr.setRequestHeader("Accept", "application/vnd.sheetsu.3+json");
+    xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+    xhr.setRequestHeader("X-User-Agent", "Sheetsu-JS");
+    xhr.onerror = function (e) {
+      reject(e);
+    };
+
+    xhr.send();
+  });
+}
