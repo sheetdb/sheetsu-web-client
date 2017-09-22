@@ -16,8 +16,13 @@ function readWithPromise(slug_or_url, options) {
     var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
     xhr.open("GET", sheetsuUrlGet(slug_or_url, options), true);
     xhr.onload = function () {
-      if (xhr.readyState === 4) {
+      if (this.status >= 200 && this.status < 300) {
         resolve(JSON.parse(xhr.responseText));
+      } else {
+        reject({
+          status: this.status,
+          statusText: xhr.statusText
+        });
       }
     };
 
