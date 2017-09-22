@@ -1,9 +1,13 @@
-function write(slug_or_url, data, options, successFunction) {
+function write(slug_or_url, data, options, successFunction, errorFunction) {
   var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
 
   xhr.onreadystatechange = function() {
     if (xhr.readyState > 3 && xhr.status == 201) {
       successFunction(JSON.parse(xhr.responseText));
+    } else {
+      if (errorFunction != undefined) {
+        errorFunction(xhr.responseText);
+      }
     }
   }
 

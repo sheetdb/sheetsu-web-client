@@ -1,8 +1,10 @@
 describe("Sheetsu.write", function() {
-  var doneFn = jasmine.createSpy("success");
+  var doneFn, errorFn;
 
   beforeEach(function() {
     jasmine.Ajax.install();
+    doneFn = jasmine.createSpy("success");
+    errorFn = jasmine.createSpy("error");
   });
 
   afterEach(function() {
@@ -45,6 +47,28 @@ describe("Sheetsu.write", function() {
       expect(jasmine.Ajax.requests.mostRecent().url).toBe("https://sheetsu.com/apis/v1.0/deadbeef69");
       expect(jasmine.Ajax.requests.mostRecent().method).toBe("POST");
       expect(JSON.parse(jasmine.Ajax.requests.mostRecent().params)).toEqual(data);
+    });
+
+    it("should run success function on success", function() {
+      jasmine.Ajax.stubRequest('https://sheetsu.com/apis/v1.0/deadbeef69').andReturn({
+        "responseText": "{ \"foo\": \"bar\" }",
+        "status": 201
+      });
+
+      Sheetsu.write("deadbeef69", { "name": "hippo", "sound": "growl" }, {}, doneFn);
+
+      expect(doneFn).toHaveBeenCalled();
+    });
+
+    it("should run error function on error", function() {
+      jasmine.Ajax.stubRequest('https://sheetsu.com/apis/v1.0/deadbeef69').andReturn({
+        "responseText": "{ \"error\": \"Something went wrong\" }",
+        "status": 400
+      });
+
+      Sheetsu.write("deadbeef69", { "name": "hippo", "sound": "growl" }, {}, doneFn, errorFn);
+
+      expect(errorFn).toHaveBeenCalled();
     });
 
     describe("with promise", function() {

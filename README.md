@@ -148,6 +148,18 @@ Save data from the form to the Google Spreadsheets
 ```
 [Play with the live version of the code on CodePen](https://codepen.io/sheetsu/pen/NgmerW?editors=1111)
 
+You can also pass the error callback, which will be triggered on any error from the API
+
+```javascript
+Sheetsu.write(
+  "https://sheetsu.com/apis/v1.0/020b2c0f/",
+  data,
+  {},
+  function(data) { console.log(data); } // On success
+  function(error) { console.log(error); } // On error
+);
+```
+
 ## Plot chart
 
 Plot chart with [HighchartJS](https://www.highcharts.com/).
