@@ -34,10 +34,10 @@ var sheetsuUrlPost = function(slug_or_url, options) {
 };
 
 var sheetsuUrl = function(urlOrSlug) {
-  if (urlOrSlug.startsWith("https://sheetsu.com/apis/v1.0/")) {
+  if (urlOrSlug.startsWith("https://sheetsu.com/apis/v1.0")) {
     return urlOrSlug;
   } else {
-    return ("https://sheetsu.com/apis/v1.0/" + urlOrSlug);
+    return ("https://sheetsu.com/apis/v1.0ow/" + urlOrSlug);
   }
 };
 
